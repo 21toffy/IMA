@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+{% load static %}
+
+<main>
+
+    <main>
+            <div class="carousel slide" id="main-carousel" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#main-carousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#main-carousel" data-slide-to="1"></li>
+                    
+                </ol><!-- /.carousel-indicators -->
+                
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img class="d-block img-fluid" src="{{course.image}}" alt="">
+                        <div class="carousel-caption d-none d-md-block">
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block img-fluid" src="{{course.image}}" alt="">
+                        <div class="carousel-caption d-none d-md-block">
+                        </div>
+                    </div>
+
+                </div><!-- /.carousel-inner -->
+                
+                <a href="#main-carousel" class="carousel-control-prev" data-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                    <span class="sr-only" aria-hidden="true">Prev</span>
+                </a>
+                <a href="#main-carousel" class="carousel-control-next" data-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                    <span class="sr-only" aria-hidden="true">Next</span>
+                </a>
+            </div><!-- /.carousel -->
+            <!-- <nav class="navbar navbar-expand-md ">
+                    <a class="navbar-brand" href="#">Navbar w/ text</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" 
+                    data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" 
+                    aria-label="Toggle navigation" style="color: black;">
+                    <span class="navbar-toggler-icon"><i class="fas fa-bars hamburger"></i></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarText">
+                    <ul class="navbar-nav mr-auto nav">
+                    <li class="nav-item" style="color: black;">
+                    <a class="nav-link" style="color: black;" href="#section1">Home</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" style="color: black;" href="#section2">About</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" style="color: black;" href="#section2">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" style="color: black;" href="#section4">Education</a>
+                    </li>
+                    </ul>
+                    </div>
+                    </nav> -->
+
+
+
+                    <div style="overflow: hidden; font-weight: 900; margin-top: 30px; ">
+                        <div class="container ">
+                                <a href="#Section_further_down">
+                            <h3 style="color: #BB0C33;
+  font-weight: 900; float: left; margin-right: 5px;">Brochure</h3>
+                                </a>
+                        </div>
+                        <a href="#Section_further_down">
+                            <h3 style="color: #BB0C33;
+  font-weight: 900; float: left; margin-left: 10px;">Overview</h3>
+                        </a>
+
+                        <a href="#Section_further_down">
+                            <h3 style="color: #BB0C33;
+  font-weight: 900; float: left; margin-left: 10px;">Testimonials</h3>
+                        </a>
+                    </div>
+                    <hr>
+                    <div class="container">
+                        <div class="container">
+                                <h2 style="font-weight: 900;">About This Course</h2>
+                                <br><h4><span style="font-weight:600;">Course Name : </span>{{course.name}}</h4>
+                                <br>
+                                <h4><span style="font-weight:600;">Overview:</span> {{course.details}}</h4><br>
+                                <h4><span style="font-weight:600;">Fee:</span>N {{course.price}}</h4>
+
+                                <br>
+                                
+                                <form action="/course/register/{{course.id}}/" method="get" class="form-inline">
+                                    <div class="input-group mx-sm-3 mb-2">
+                                    <button class="btn btn-secondary" type="submit">Register for course</button>
+                                </div>
+                                </form>
+                                <hr>
+                        </div>
+                    </div>
+                    <div class="container">
+                            <div class="container">
+                                    <br>
+                                    <h4><span style="font-weight:600;">Skill Level:</span> {{course.level}}</h4>
+                                    <h4><span style="font-weight:600;">Duration:</span> {{course.duration}}</h4>
+                                    <h4><span style="font-weight:600;">Other Perks:</span> {{course.perks}}</h4>
+                                    <hr>
+                            </div>  
+                        </div>
+
+                        <div class="container">
+                            <div class="container">
+                                    <h2 style="font-weight: 900;">Description</h2>
+                                        <br>
+                                        <ul>
+                                            {% for about_course_content in about_course %}
+                                            <h4 style="font-weight: 600;">{{about_course_content.title}}</h4>
+                                            <li >
+                                                    <h5>{{about_course_content.text}}</h5>
+                                            </li><br>
+                                            {% endfor %}
+                                        </ul>
+                                        <hr>
+                                </div>  
+                            </div>
+                            
+                            <div class="container">
+                                    <div class="container">
+                                            <h2 style="font-weight: 900;">What You Will Learn</h2>
+                                                <br>
+                                                <ul>
+                                                    {% for what_you_will_learn in what_you_will_learn %}
+                                                    <h4 style="font-weight: 600;">{{what_you_will_learn.title}}</h4>
+                                                    <li >
+                                                            <h5>{{what_you_will_learn.text}}</h5>
+                                                    </li><br>
+                                                    {% endfor %}
+                                                </ul>
+                                                <hr>
+                                        </div>  
+                                    </div>
+
+      <div class="container mb-20px" style="margin-top:20px;" >
+        <br>
+   
+
+      </div>
+
+</main>
+
+{% endblock %}

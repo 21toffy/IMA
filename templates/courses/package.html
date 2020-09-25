@@ -1,0 +1,87 @@
+    {% extends 'base.html' %}
+
+{% block body %}
+
+{% load static %}
+  <!-- header end -->
+    <main>
+            <br>
+            <br>
+            <br>
+            <br>
+            <section class="home-blog-area section-padding30">
+                    <div class="container">
+                        <div class="row">
+                        {% if courses %}
+                                         
+                        {% for course in courses %}
+                            <div class="col-lg-4 col-md-6">
+                                <div class="home-blog-single mb-30">
+                                    <div class="blog-img-cap">
+                                        <div class="blog-img">
+                                            
+                                            {% if course.image %}
+                                                <img src="{{course.image}}" alt="">
+                                                
+                                            {% endif %}
+                                                
+                                        </div>
+                                        <div class="blog-cap">
+                                            <h2><a href="blog_details.html">{{course.name}}.</a></h2><br>
+                                            <div class="blog_item_date card-mid">
+                                                    <h4>Duration: {{course.duration}}<span></span></h4>
+                                            </div><br>
+
+                                            <div class="card-mid">
+                                                <h2>for  {{course.level}}<span></span></h2>
+                                            </div><br>
+                                            <div class="card-bottom">
+                                                    <ul>
+                                                        <li>{{course.details}}</li>
+                                                    </ul><br><br>
+                                                </div>
+                                                <a href="{% url 'courses:course_detail' course.pk %}" class="borders-btn">View more</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+            
+                            {% else %}
+                            no courses
+                            {% endif %}
+            
+                        </div>
+                    </div>
+                </section>
+ 
+        <!-- Pricing Card End -->
+        <!-- Latest Offers Start -->
+        <div class="latest-wrapper pb-bottom">
+            <div class="container">
+                <!-- <div class="latest-area latest-height  section-bg2" data-background="{% static 'img/gallery/section_bg01.png' %}"> -->
+                   
+                    <div class="latest-area latest-height  section-bg2" data-background="https://i.ibb.co/4K2DWN8/section-bg01.png">
+
+                    <div class="row  align-items-center justify-content-between">
+                        <div class="col-xl-5 col-lg-7">
+                            <div class="latest-caption">
+                                <h2>subscribe to our news letter.</h2>
+                            </div>
+                        </div>
+                        <div class="col-xl-5 col-lg-5 col-md-10 ">
+                            <div class="latest-subscribe">
+                                <form action="#">
+                                    <input type="email" placeholder="Enter Zipcode">
+                                    <button>Get Mails</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Latest Offers End -->
+    </main>
+
+    {% endblock %}
