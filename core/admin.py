@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import HomeView
+from .models import ViewCount
+
+admin.site.register(HomeView)
+admin.site.register(ViewCount)

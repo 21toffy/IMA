@@ -1,26 +1,206 @@
-{% load paystack %}
-<form >
-  <script src="https://js.paystack.co/v1/inline.js"></script>
-  <button type="button" onclick="makePayment()"> Pay </button> 
-</form>
- 
-<script>
-  function makePayment(){
-    var handler = PaystackPop.setup({
-            key = "public_key" //public key from your paystack
-            email: {{email}},
-            amount: {{price}},
-            currency: "NGN",
-            ref: ""+Math.floor((Math.random() * 100000000) + 1),
-            ref: ''+Math.floor((Math.random() * 1000000000) + 1),
-            callback: function(response){
-          alert('success. transaction ref is ' +response.reference);
-      },
-      onClose: function(){
-          alert('window closed');
-      }
-    });
-    handler.openIframe();
-  }
-  window.onload = makePayment()
-</script>
+<head>
+  <meta charset="utf-8" />
+  <title>Make Payment | {{course_id}} </title>
+  <meta name="description" content="Ohunayo Allen Gege Personal Portfolio">
+  <meta name="keywords" content="Web Developer, Web Designer, Website, Designer, Devs, Django, Python, Developer">
+  <meta name="author" content="Ohunayo Gege">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- Template Google Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Poppins:400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+
+  <!-- Template CSS Files -->
+  <link type="text/css" media="all" href="/static/css/bootstrap.min.css" rel="stylesheet">
+  <link type="text/css" media="all" href="/static/css/font-awesome.min.css" rel="stylesheet">
+  <link type="text/css" media="all" href="/static/css/style.css" rel="stylesheet">
+  <link type="text/css" media="all" href="/static/css/skins/teal.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+</head>
+
+<body class="dark blog">
+	<div class="page">
+		<div class="wrapper">
+		<div class="container-fluid page-title">
+			<div class="content-banner">
+				<h2 class="text-center">
+            {% if if_user_has_paid_for_current_course %}
+            <span class='capitalize mt-30 mb-20'>
+              you are currently enrolled for this course
+            </span>             
+              {% else %}
+              
+              <span>Make </span>
+              <span>Payment</span>
+            {% endif %}
+				</h2>
+			</div>
+		</div>
+    <div class="container mt-30">
+            <div class="row">
+    
+                <div class="col-sm-6 offset-sm-3">
+
+           
+                <div class="box-part text-center">
+                    
+                    <i class="fa fa-cart-arrow-down fa-3x" aria-hidden="true"></i>
+                    
+
+                    {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                            <li {% if message.tags %} class="{{message.tags}}"{% endif %}>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+
+
+                    <form>
+                      Course Name: {{course_id.name}}
+                      <hr>
+                      Course Fee: N {{course_id.price}}
+                      <hr>
+                      First Name: {{user.firstname}}
+                      <hr>
+                      Last Name: {{user.lastname}}
+                      <hr>
+                        Email Adress: {{user.email}}
+                        <hr>
+
+                    </form>
+
+                    {% if if_user_has_paid_for_current_course %}
+                    <button class="btn btn-default btn-rounded" >
+                      <a href="{% url 'courses:course_detail' course_id.id %}">Go back</a>
+                      </button>
+                     
+                      {% else %}
+                      <form id="button">
+                        <script src="https://js.paystack.co/v1/inline.js"></script>
+                        <button type="button" class="btn btn-default btn-rounded" onclick="payWithPaystack()"> Proceed To Register</button>
+                      </form>
+                    {% endif %}
+                  </div>
+                    </div>
+                </div>
+                <script>
+
+
+                  function alat(response){
+                    alert('{{ user.firstname }} '+ '{{ user.lastname }}'+ ' you successfully paid for'+ ' {{course_id.name}}' +' and your transaction ref is ' + response.reference);
+                  };
+                  function failureAlat(response) {
+                    alert('You closed this pop up. if you did not mean to perform this action, click on proceed to register button!')
+                  };
+
+                  function redirect(){
+                    return window.location.href = '/'
+
+                  };
+
+
+                  function payWithPaystack(){
+                    var handler = PaystackPop.setup({
+                      key: 'pk_test_9770b7b9d5a982da69a8a4e8b757b1cebf4e1eac',
+                      email: '{{ user.email }}',
+                      amount: '{{course_id.get_price}}',
+                      firstname: '{{ user.firstname }}',
+                      lastname: '{{ user.lastname }}',
+                      currency: "NGN",
+                      ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+                      metadata: {
+                         custom_fields: [
+                            {
+                                display_name: "Mobile Number",
+                                variable_name: "mobile_number",
+                                value: "{{ user.mobile_number }}"
+                            }
+                         ]
+                      },
+
+                      
+                      callback: function(response){
+                        saveToDb();
+
+                        redirect();
+
+                        alert('{{ user.firstname }} '+ '{{ user.lastname }}'+ ' you successfully paid for'+ ' {{course_id.name}}' +' and your transaction ref is ' + response.reference);
+                         
+                      },
+                      onClose: function(){
+                          failureAlat()
+
+
+                      }
+                    });
+                    console.log(handler);
+                    // console.log(price);
+                    handler.openIframe();
+                  }
+
+                  function saveToDb () {
+                  var requestData = { user: '{{user}}' , usercourse: '{{ course_id }}', csrfmiddlewaretoken: '{{ csrf_token }}', };
+                    // console.log(requestData);
+      
+                    $.ajax({
+                      
+                        url: "{% url 'courses:usercourse' %}",
+                        type: "POST",
+                        dataType: "json",
+                        data: requestData,
+                        success: function(data){
+                            console.log( "ID:" + data.user.id + " Error:" + data.error);
+                        },
+                        error: function(msg){
+                            alert( "you are already subscribed to this course!!!" );
+                            window.location.href = "{% url 'core:home' %}"
+                        }              
+                  }); 
+                }
+
+            
+
+                 
+                </script>
+            </div>
+            </div>
+            </div>
+            <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+            
+            </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            

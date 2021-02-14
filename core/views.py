@@ -14,6 +14,7 @@ from django.contrib import messages
 from django.template.loader import get_template
 
 from blog.models import Blog
+from .models import ViewCount
 #first_about:
 # 4 images
 # https://i.ibb.co/rQRJYpS/Screenshot-317.png
@@ -44,6 +45,8 @@ from blog.models import Blog
 #remove blog post from homepage
 
 def home(request):
+    homeview = ViewCount.objects.create(page='Home')
+    homeview.save()
     print('if blog')
     if Blog:
         blogs=Blog.objects.filter(status=0).order_by('-time')[:3]
@@ -97,11 +100,22 @@ def home(request):
 
 
 
-class AboutView(TemplateView):
+# class AboutView(TemplateView):
+#     homeview = ViewCount.objects.create(page='About')
+#     homeview.save()
     template_name = 'about.html'
 
 
+def about(request):
+    homeview = ViewCount.objects.create(page='About')
+    homeview.save()
+    return render(request, 'about.html')
+
+
+
 def contact(request):
+    homeview = ViewCount.objects.create(page='Contact')
+    homeview.save()
     return render(request, 'contact.html')
 
 

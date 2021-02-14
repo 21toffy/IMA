@@ -1,8 +1,123 @@
-{% for course in courses %}
-{{course}}  
-{% endfor %}
+<script>
+    function payWithPaystack(){
+      var handler = PaystackPop.setup({
+        key: 'pk_test_9770b7b9d5a982da69a8a4e8b757b1cebf4e1eac',
+        email: '{{ user.email }}',
+        amount: '{{ course_id.price }}',
+        firstname: '{{ user.firstname }}',
+        lastname: '{{ user.lastname }}',
+        currency: "NGN",
+        ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+        metadata: {
+           custom_fields: [
+              {
+                  // display_name: "Course",
+                  // variable_name: "course_name",
+                  // value: "{{ course_id.name }}"
+
+                  display_name: "Mobile Number",
+                  variable_name: "mobile_number",
+                  value: "{{ payment.mobile }}"
+              }
+           ]
+        },
+        callback: function(response){
+            alert('success. transaction ref is ' + response.reference);
+        },
+        onClose: function(){
+            alert('window closed');
+        }
+      });
+      console.log(handler);
+      handler.openIframe();
+    }
+  </script>
 
 
 
 
 
+
+
+
+
+
+<script>
+    function payWithPaystack(){
+      var handler = PaystackPop.setup({
+        key: 'pk_test_bba449a6a2f6edf99cb57feb50cd2bb6b65d4e03',
+        email: '{{ payment.email }}',
+        amount: '{{ price }}',
+        firstname: '{{ payment.firstname }}',
+        lastname: '{{ payment.lastname }}',
+        currency: "NGN",
+        ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+        metadata: {
+           custom_fields: [
+              {
+                  display_name: "Mobile Number",
+                  variable_name: "mobile_number",
+                  value: "{{ payment.mobile }}"
+              }
+           ]
+        },
+        callback: function(response){
+            alert('success. transaction ref is ' + response.reference);
+        },
+        onClose: function(){
+            alert('window closed');
+        }
+      });
+      console.log(handler);
+      handler.openIframe();
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    function payWithPaystack(){
+      var handler = PaystackPop.setup({
+        key: 'pk_test_bba449a6a2f6edf99cb57feb50cd2bb6b65d4e03',
+        email: '{{ payment.email }}',
+        amount: '{{ price }}',
+        firstname: '{{ payment.firstname }}',
+        lastname: '{{ payment.lastname }}',
+        currency: "NGN",
+        ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+        metadata: {
+           custom_fields: [
+              {
+                  display_name: "Mobile Number",
+                  variable_name: "mobile_number",
+                  value: "{{ payment.mobile }}"
+              }
+           ]
+        },
+        callback: function(response){
+            alert('success. transaction ref is ' + response.reference);
+        },
+        onClose: function(){
+            alert('window closed');
+        }
+      });
+      console.log(handler);
+      handler.openIframe();
+    }
+  </script>

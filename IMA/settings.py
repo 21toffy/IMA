@@ -26,15 +26,14 @@ ALLOWED_HOSTS = ['influencemediaafrica.herokuapp.com', '127.0.0.1', 'influenceme
 # Application definition
 
 INSTALLED_APPS = [
-    'paystack',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'paystack',
-    # 'cloudinary',
+
     'blog',
     'controlpanel',
     'core',
@@ -42,6 +41,8 @@ INSTALLED_APPS = [
     'newsletters',
     'users',
     'django_sass',
+    'crispy_forms',
+
 ]
 
 MIDDLEWARE = [
@@ -57,6 +58,12 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'IMA.urls'
+
+
+# AUTHENTICATION_BACKENDS = (
+#         'django.contrib.auth.backends.RemoteUserBackend',
+#         'django.contrib.auth.backends.ModelBackend',
+# )
 
 TEMPLATES = [
     {
@@ -138,7 +145,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # )
 
 
-
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'static')
@@ -173,3 +179,6 @@ EMAIL_HOST_USER='tosdoltos@gmail.com'
 EMAIL_HOST_PASSWORD='0Luw@t0funm1'
 EMAIL_PORT=587
 EMAIL_USE_TLS= True
+
+
+AUTH_USER_MODEL = 'users.User'

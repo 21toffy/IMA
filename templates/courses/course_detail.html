@@ -20,7 +20,7 @@
                         <div class="carousel-caption d-none d-md-block">
                         </div>
                     </div>
-                    <div class="carousel-item">
+                    <div class="carousel-item view overlay">
                         <img class="d-block img-fluid" src="{{course.image}}" alt="">
                         <div class="carousel-caption d-none d-md-block">
                         </div>
@@ -83,7 +83,7 @@
                     </div>
                     <hr>
                     <div class="container">
-                        <div class="container">
+                        <div class="container capitalize">
                                 <h2 style="font-weight: 900;">About This Course</h2>
                                 <br><h4><span style="font-weight:600;">Course Name : </span>{{course.name}}</h4>
                                 <br>
@@ -94,10 +94,16 @@
                                 
                                 <form action="/course/register/{{course.id}}/" method="get" class="form-inline">
                                     <div class="input-group mx-sm-3 mb-2">
+                                    </div>
                                     <button class="btn btn-secondary" type="submit">Register for course</button>
-                                </div>
                                 </form>
                                 <hr>
+                                <!-- <input
+                                type="hidden"
+                                class="form-group"
+                                name="gotten_id"
+                                value="buhbhubh"
+                                /> -->
                         </div>
                     </div>
                     <div class="container">

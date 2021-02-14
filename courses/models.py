@@ -14,7 +14,8 @@ class Course (models.Model):
     )
     name = models.CharField(max_length=100)
     details = models.TextField()
-    price = models.IntegerField(default=15)
+    price = models.IntegerField(default=0)
+    # price2 = models.IntegerField(default=price*100)
     level = models.CharField(choices=LEVEL, default="Starters", max_length=200)
     duration = models.CharField(max_length=200)
     perks = models.CharField(max_length=200)
@@ -22,6 +23,10 @@ class Course (models.Model):
     
     def __str__ (self):
         return self.name
+    
+    @property
+    def get_price(self):
+        return self.price*100
 
 
 class UserCourse(models.Model):
@@ -29,7 +34,7 @@ class UserCourse(models.Model):
     paid  = models.BooleanField(default=False)
     course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True)
     def __str__(self):
-        return f"{self.course}, {self.user.username}, {self.paid}"
+        return f"{self.course}, {self.user}, {self.paid}"
         # return "usercourse" + self.user.username + self.course
 
 

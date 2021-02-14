@@ -18,9 +18,9 @@
 <!-- CSS here -->
 <!-- <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %} "> -->
 
+
+
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
-
 <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %} ">
 <link rel="stylesheet" href="{% static 'css/slicknav.css' %} ">
 <link rel="stylesheet" href="{% static 'css/flaticon.css' %} ">
@@ -34,6 +34,7 @@
 <link rel="stylesheet" href="{% static 'css/slick.css' %} ">
 <link rel="stylesheet" href="{% static 'css/nice-select.css' %} ">
 <link rel="stylesheet" href="{% static 'css/style.css' %} ">
+<!-- <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %} "> -->
 
 
 
@@ -158,8 +159,8 @@
                                 <h4>Our Support</h4>
                                 <ul>
                                     <!-- <li><a href="#">Advanced</a></li> -->
-                                    <li><a href="#"> Management</a></li>
-                                    <li><a href="#">Corporate</a></li>
+                                    <li><a href="{% url 'users:login' %}"> Management</a></li>
+                                    <li><a href="{% url 'controlpanel:blog_view' %}">control</a></li>
                                     <li><a href="#">Customer</a></li>
                                     <li><a href="#">Information</a></li>
                                 </ul>

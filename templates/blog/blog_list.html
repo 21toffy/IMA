@@ -46,8 +46,8 @@
                                 </a>
                             </div>
                             <div class="blog_details">
-                                <a class="d-inline-block" href="{% url 'myapp:post_detail' blog.slug  %}">
-                                    <h2 class="blog-head" style="color: #2d2d2d;" href="{% url 'myapp:post_detail' blog.slug  %}">{{blog.title}}</h2>
+                                <a class="d-inline-block" href="{% url 'blog:post_detail' blog.slug  %}">
+                                    <h2 class="blog-head" style="color: #2d2d2d;" href="{% url 'blog:post_detail' blog.slug  %}">{{blog.title}}</h2>
                                 </a>
                                 <p>{{blog.text}}</p>
                                 <ul class="blog-info-link">
@@ -57,7 +57,7 @@
                                 
                                 <div class="text-center">
 
-                                  <a  href="{% url 'myapp:post_detail' blog.slug  %}"  style="color: #fff;" class="slash btn-primary">Read More &rarr;</a>
+                                  <a  href="{% url 'blog:post_detail' blog.slug  %}"  style="color: #fff;" class="slash btn-primary">Read More &rarr;</a>
                                 </div>
 
                             </div>

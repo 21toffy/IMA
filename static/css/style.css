@@ -3785,7 +3785,10 @@ window.innerWidth */
 
 /* line 119, C:/Users/HP/Desktop/jun-2020/278.Internet_service/assets/scss/_h1-hero.scss */
 .slider-area2 {
-  background-image: url(../img/hero/hero2.png);
+  /* background-image: url(../img/hero/hero2.png); */
+  background-image: url(https://i.ibb.co/7QJkYR7/hero2.png);
+
+  
   background-repeat: no-repeat;
   background-size: cover;
 }

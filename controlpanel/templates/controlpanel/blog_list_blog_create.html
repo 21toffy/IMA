@@ -1,0 +1,214 @@
+{% extends 'controlpanel/base.html' %}
+{% load static %}
+
+
+
+{% block body %}
+<div class="row">
+    <!-- Border Left Utilities -->
+    <div class="col-lg-6">
+            
+                <div class="card mb-4 py-3 border-left-primary">
+                    <div class="card-body">
+                    <h1>Page view metrics</h1>
+                        <p class="text-xs">HOME PAGE VIEW: {{home_count.count}}</p>
+                        <p class="text-xs">BLOG PAGE VIEW: {{blog_count.count}}</p>
+                        <p class="text-xs">CONTACT PAGE VIEW: {{contact_count.count}}</p>
+                        <p class="text-xs">ABOUT PAGE VIEW: {{about_count.count}}</p>
+                        <p class="text-xs">COURSE LIST PAGE VIEW: {{courses_count.count}}</p>
+                        
+                    </div>
+                </div>
+        </div>
+        
+        
+        <!-- Border Left Utilities -->
+        <div class="col-lg-6">
+            <div class="card mb-4 py-3 border-left-primary">
+                <div class="card-body">
+                        <h2>Create New Post</h2>
+                        
+                        <form method="POST" action="#">
+                            {% csrf_token %}
+                            {{form}}
+                            <button type="submit">post</button>
+                        </form>
+                        
+                        
+                   
+                </div>
+                </div>
+            </div>
+        </div>
+        <h1 class="text-center m-10">Blog Post Metrics</h1>
+        <!-- Content Row -->
+        <div class="row">
+            <!-- First Column -->
+            <div class="col-lg-4">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <!-- <h6 class="m-0 font-weight-bold text-primary"></h6> -->
+                    </div>
+                    <div class="card-body">
+        
+                            <div class="dropdown mb-4">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        i have {{my_blog.count}} Blog posts
+                                    </button>
+                                    <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
+                                        {% if my_blog %}
+                                          
+                                        {% for x in my_blog %}
+                                            <a class="dropdown-item" href="#">
+                                            {{x.title}}
+                                            </a>
+                                        {% endfor %}
+                                        {% else %}
+                                        
+                                        {{my_blog.count}}
+                                        {% endif %}
+                                      
+                                    </div>
+                                  </div>
+        
+                        <p class="text-xs">{{my_views}} people viewed my blog posts</p>
+                        <!-- <p class="text-xs">My Blog Posts</p> -->
+                    </div>
+                    </div>
+            </div>
+        
+            <!-- second Column -->
+            <div class="col-lg-4">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">All published Blog posts</h6>
+                        </div>
+                        <div class="card-body">
+        
+                                <div class="dropdown mb-4">
+                                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            All Blog posts
+                                        </button>
+                                        <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
+                                            {% if pub_blog %}
+                                              
+                                            {% for x in pub_blog %}
+                                                <a class="dropdown-item">
+                                                {{x.title}}
+                                                </a>
+                                            {% endfor %}
+                                            {% else %}
+        
+                                            {% endif %}
+                                          
+                                        </div>
+                                      </div>
+        
+        
+        
+        
+                                      <div class="dropdown mb-4">
+                                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                All Events
+                                            </button>
+                                            <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
+                                                {% if event_blog %}
+                                                  
+                                                {% for x in event_blog %}
+                                                    <a class="dropdown-item" >
+                                                    {{x.title}}
+                                                    </a>
+                                                {% endfor %}
+                                                {% else %}
+                                                {% endif %}
+                                              
+                                            </div>
+                                          </div>
+        
+                            <p class="text-lg mb-0">{{pub_blog.count}} Blog posts</p>
+                            <p class="text-lg mb-0">{{event_blog.count}} Event Posts</p>
+                            <p class="text-xs">{{all_views}} people Viewed all blog posts</p>
+                        </div>
+                        </div>
+                </div>
+        
+        <!-- third Column -->
+        <div class="col-lg-4">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Blog Posts Awaiting Approval</h6>
+                    </div>
+                    <div class="card-body">
+                        {% if request.user.is_superuser %}
+                        <div class="dropdown mb-4">
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{super_approval.count}} POSTS AWAITING APPROVAL
+                                </button>
+                                <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
+                                    {% if super_approval %}
+                                      
+                                    {% for x in super_approval %}
+                                        <a class="dropdown-item" >
+                                        {{x.title}}
+                                        </a>
+                                    {% endfor %}
+                                    {% else %}
+                                    {% endif %}
+                                  
+                                </div>
+                              </div> 
+                            <p class="text-xs">{{super_approval.count}} posts awaiting your approval</p>
+                        {% else %}
+                        <div class="dropdown mb-4">
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{awaiting_approval.count}} POSTS AWAITING APPROVAL
+                                </button>
+                                <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
+                                    {% if awaiting_approval %}
+                                      
+                                    {% for x in awaiting_approval %}
+                                        <a class="dropdown-item" >
+                                        {{x.title}}
+                                        </a>
+                                    {% endfor %}
+                                    {% else %}
+                                    {% endif %}
+                                  
+                                </div>
+                              </div> 
+                        
+                        {% endif %}
+                        
+                    </div>
+                    </div>
+            </div>
+        
+        </div>
+        <!-- Content Row -->
+        
+        <!-- <div class="row">
+            <div class=".col-lg-6 offset-lg-3">
+            <div class="row">
+                
+                <div class="col-xl-8 col-lg-7"> -->
+                    
+                      <!-- Area Chart -->
+                      <!-- <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                          <h6 class="m-0 font-weight-bold text-primary">Area Chart</h6>
+                        </div>
+                        <div class="card-body">
+                          <div class="chart-area">
+                            <canvas id="myAreaChart"></canvas>
+                          </div>
+                          <hr>
+                          Styling for the area chart can be found in the <code>/js/demo/chart-area-demo.js</code> file.
+                        </div>
+                      </div>
+    </div>
+</div> -->
+ 
+
+
+ 
+{% endblock body %}
